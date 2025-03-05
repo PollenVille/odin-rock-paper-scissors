@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 500px;
+        width: 1000px;
+        /* background-color: red; */
+      }
+
+      .display {
+        width: 100%;
+      }
+
+      .results-display {
+        text-align: center;
+        font-size: xx-large;
+        font-family: "Courier New", Courier, monospace;
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: space-evenly;
+        margin-top: 100px;
+      }
+
+      button {
+        width: 100px;
+        height: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="display">
+        <div class="results-display">
+          <p id="results">Rock - Paper - Scissors</p>
+        </div>
+        <div class="buttons">
+          <button id="rock">Rock</button>
+          <button id="paper">Paper</button>
+          <button id="scissors">Scissors</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("rock").onclick = function () {
+        getResults(this.id);
+      };
+
+      document.getElementById("paper").onclick = function () {
+        getResults(this.id);
+      };
+
+      document.getElementById("scissors").onclick = function () {
+        getResults(this.id);
+      };
+
+      function getResults(buttonId) {
+        // let rock = 1;
+        // let paper = 2;
+        // let scissors = 3;
+
+        let choice = Math.floor(Math.random() * 3);
+        switch (choice) {
+          case 1:
+            console.log("Computer chose Rock");
+            if (buttonId == "rock") {
+              console.log("Draw");
+              document.getElementById("results").innerText = "Draw";
+            } else if (buttonId == "paper") {
+              console.log("Winner! Paper beats rock");
+              document.getElementById("results").innerText =
+                "winner! Paper beats rock";
+            } else {
+              console.log("Loser! Scissor beat paper");
+              document.getElementById("results").innerText =
+                "Loser! Scissor beat paper";
+            }
+            break;
+
+          case 2:
+            console.log("Computer chose Paper");
+            if (buttonId == "rock") {
+              console.log("Loser! Paper beats rock");
+              document.getElementById("results").innerText =
+                "Loser! Paper beats rock";
+            } else if (buttonId == "paper") {
+              console.log("Draw");
+              document.getElementById("results").innerText = "Draw";
+            } else {
+              console.log("Winner! Scissors beat paper");
+              document.getElementById("results").innerText =
+                "Winner! Scissors beat paper";
+            }
+            break;
+
+          case 3:
+            console.log("Computer chose Scissors");
+            if (buttonId == "rock") {
+              console.log("Winner! Rock beats scissors");
+              document.getElementById("results").innerText =
+                "Winner! Rock beats scissors";
+            } else if (buttonId == "paper") {
+              console.log("Loser! Scissors beat paper");
+              document.getElementById("results").innerText =
+                "Loser! Scissors beat paper";
+            } else {
+              console.log("Draw");
+              document.getElementById("results").innerText = "Draw";
+            }
+            break;
+        }
+      }
+    </script>
+  </body>
+</html>
