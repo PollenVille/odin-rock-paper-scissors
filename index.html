@@ -29,6 +29,11 @@
         font-family: "Courier New", Courier, monospace;
       }
 
+      .scores {
+        display: flex;
+        justify-content: space-evenly;
+      }
+
       .buttons {
         display: flex;
         justify-content: space-evenly;
@@ -45,6 +50,10 @@
     <div class="container">
       <div class="display">
         <div class="results-display">
+          <div class="scores">
+            <p id="human-score"></p>
+            <p id="computer-score"></p>
+          </div>
           <p id="results">Rock - Paper - Scissors</p>
         </div>
         <div class="buttons">
@@ -56,74 +65,188 @@
     </div>
 
     <script>
-      document.getElementById("rock").onclick = function () {
-        getResults(this.id);
-      };
+      function playGame() {
+        let computerScore = 0;
+        let humanScore = 0;
+        let round = 0;
 
-      document.getElementById("paper").onclick = function () {
-        getResults(this.id);
-      };
+        document.getElementById("rock").onclick = function () {
+          let humanChoice = getHumanChoice(this.id);
+          let computerChoice = getComputerChoice();
+          playRound(humanChoice, computerChoice);
+          ++round;
+        };
+        document.getElementById("paper").onclick = function () {
+          let humanChoice = getHumanChoice(this.id);
+          let computerChoice = getComputerChoice();
+          playRound(humanChoice, computerChoice);
+          ++round;
+        };
+        document.getElementById("scissors").onclick = function () {
+          let humanChoice = getHumanChoice(this.id);
+          let computerChoice = getComputerChoice();
+          playRound(humanChoice, computerChoice);
+          ++round;
+        };
 
-      document.getElementById("scissors").onclick = function () {
-        getResults(this.id);
-      };
+        function getComputerChoice() {
+          let choices = ["rock", "paper", "scissors"];
+          let computerChoice =
+            choices[Math.floor(Math.random() * choices.length)];
+          console.log(computerChoice);
+          return computerChoice;
+        }
 
-      function getResults(buttonId) {
-        // let rock = 1;
-        // let paper = 2;
-        // let scissors = 3;
+        function getHumanChoice(buttonId) {
+          let humanChoice = buttonId;
+          console.log(humanChoice);
+          return humanChoice;
+        }
 
-        let choice = Math.floor(Math.random() * 3);
-        switch (choice) {
-          case 1:
-            console.log("Computer chose Rock");
-            if (buttonId == "rock") {
-              console.log("Draw");
-              document.getElementById("results").innerText = "Draw";
-            } else if (buttonId == "paper") {
-              console.log("Winner! Paper beats rock");
-              document.getElementById("results").innerText =
-                "winner! Paper beats rock";
-            } else {
-              console.log("Loser! Scissor beat paper");
-              document.getElementById("results").innerText =
-                "Loser! Scissor beat paper";
-            }
-            break;
+        function checkScore() {
+          if (computerScore == 5) {
+            console.log("Computer Wins");
+            document.getElementById("results").innerHTML = "Computer Wins";
+          } else if (humanScore == 5) {
+            console.log("Human Wins");
+            document.getElementById("results").innerHTML = "Human Wins";
+          }
+        }
 
-          case 2:
-            console.log("Computer chose Paper");
-            if (buttonId == "rock") {
-              console.log("Loser! Paper beats rock");
-              document.getElementById("results").innerText =
-                "Loser! Paper beats rock";
-            } else if (buttonId == "paper") {
-              console.log("Draw");
-              document.getElementById("results").innerText = "Draw";
-            } else {
-              console.log("Winner! Scissors beat paper");
-              document.getElementById("results").innerText =
-                "Winner! Scissors beat paper";
-            }
-            break;
+        function playRound(humanChoice, computerChoice) {
+          switch (computerChoice) {
+            case "rock":
+              console.log("Computer chose Rock");
+              if (humanChoice == "rock") {
+                console.log("Draw");
+                document.getElementById("results").innerHTML = "Draw";
+              } else if (humanChoice == "paper") {
+                console.log("Winner! Paper beats rock");
+                document.getElementById("results").innerHTML =
+                  "Winner! Paper beats rock";
+                document.getElementById("human-score").innerHTML = ++humanScore;
+              } else {
+                console.log("Loser! Rock beats scissors");
+                document.getElementById("results").innerHTML =
+                  "Loser! Rock beats scissors";
+                document.getElementById("computer-score").innerHTML =
+                  ++computerScore;
+              }
+              break;
 
-          case 3:
-            console.log("Computer chose Scissors");
-            if (buttonId == "rock") {
-              console.log("Winner! Rock beats scissors");
-              document.getElementById("results").innerText =
-                "Winner! Rock beats scissors";
-            } else if (buttonId == "paper") {
-              console.log("Loser! Scissors beat paper");
-              document.getElementById("results").innerText =
-                "Loser! Scissors beat paper";
-            } else {
-              console.log("Draw");
-              document.getElementById("results").innerText = "Draw";
-            }
-            break;
+            case "paper":
+              console.log("Computer chose Paper");
+              if (humanChoice == "rock") {
+                console.log("Loser! Paper beats rock");
+                document.getElementById("results").innerHTML =
+                  "Loser! Paper beats rock";
+                document.getElementById("computer-score").innerHTML =
+                  ++computerScore;
+              } else if (humanChoice == "paper") {
+                console.log("Draw");
+                document.getElementById("results").innerHTML = "Draw";
+              } else {
+                console.log("Winner! Scissors beat paper");
+                document.getElementById("results").innerHTML =
+                  "Winner! Scissors beat paper";
+                document.getElementById("human-score").innerHTML = ++humanScore;
+              }
+              break;
+
+            case "scissors":
+              console.log("Computer chose Scissors");
+              if (humanChoice == "rock") {
+                console.log("Winner! Rock beats scissors");
+                document.getElementById("results").innerHTML =
+                  "Winner! Rock beats scissors";
+                document.getElementById("human-score").innerHTML = ++humanScore;
+              } else if (humanChoice == "paper") {
+                console.log("Loser! Scissors beat paper");
+                document.getElementById("results").innerHTML =
+                  "Loser! Scissors beat paper";
+                document.getElementById("computer-score").innerHTML =
+                  ++computerScore;
+              } else {
+                console.log("Draw");
+                document.getElementById("results").innerHTML = "Draw";
+              }
+              break;
+          }
+          checkScore();
         }
       }
+
+      playGame();
+
+      // document.getElementById("rock").onclick = function () {
+      //   getResults(this.id);
+      // };
+
+      // document.getElementById("paper").onclick = function () {
+      //   getResults(this.id);
+      // };
+
+      // document.getElementById("scissors").onclick = function () {
+      //   getResults(this.id);
+      // };
+
+      // function getResults(buttonId) {
+      //   // let rock = 1;
+      //   // let paper = 2;
+      //   // let scissors = 3;
+
+      //   let choice = Math.floor(Math.random() * 3);
+      //   switch (choice) {
+      //     case 1:
+      //       console.log("Computer chose Rock");
+      //       if (buttonId == "rock") {
+      //         console.log("Draw");
+      //         document.getElementById("results").innerHTML = "Draw";
+      //       } else if (buttonId == "paper") {
+      //         console.log("Winner! Paper beats rock");
+      //         document.getElementById("results").innerHTML =
+      //           "winner! Paper beats rock";
+      //       } else {
+      //         console.log("Loser! Scissor beat paper");
+      //         document.getElementById("results").innerHTML =
+      //           "Loser! Scissor beat paper";
+      //       }
+      //       break;
+
+      //     case 2:
+      //       console.log("Computer chose Paper");
+      //       if (buttonId == "rock") {
+      //         console.log("Loser! Paper beats rock");
+      //         document.getElementById("results").innerHTML =
+      //           "Loser! Paper beats rock";
+      //       } else if (buttonId == "paper") {
+      //         console.log("Draw");
+      //         document.getElementById("results").innerHTML = "Draw";
+      //       } else {
+      //         console.log("Winner! Scissors beat paper");
+      //         document.getElementById("results").innerHTML =
+      //           "Winner! Scissors beat paper";
+      //       }
+      //       break;
+
+      //     case 3:
+      //       console.log("Computer chose Scissors");
+      //       if (buttonId == "rock") {
+      //         console.log("Winner! Rock beats scissors");
+      //         document.getElementById("results").innerHTML =
+      //           "Winner! Rock beats scissors";
+      //       } else if (buttonId == "paper") {
+      //         console.log("Loser! Scissors beat paper");
+      //         document.getElementById("results").innerHTML =
+      //           "Loser! Scissors beat paper";
+      //       } else {
+      //         console.log("Draw");
+      //         document.getElementById("results").innerHTML = "Draw";
+      //       }
+      //       break;
+      //   }
+
+      // }
     </script>
   </body>
 </html>
